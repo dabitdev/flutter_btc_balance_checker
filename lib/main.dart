@@ -44,19 +44,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -95,7 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'Please import the BitCoin wallet adding or scanning the secret seed key',
             ),
-            TextField(
+            Row(
+              children:<Widget>[
+                Expanded(child: TextField()),
+                Expanded(child: FlatButton(textColor:Colors.white, color:Colors.blue, onPressed: (){}, 
+              child: Text("Scan", style: TextStyle(fontSize: 12.0)))),
+              ],
             ),
             Container(margin: new EdgeInsets.all(25.0), child: FlatButton(textColor:Colors.white, color:Colors.blue, onPressed: (){}, 
               child: Text("Import", style: TextStyle(fontSize: 20.0))))
