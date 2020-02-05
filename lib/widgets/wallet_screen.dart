@@ -17,7 +17,7 @@ class Wallet extends StatelessWidget {
     final BTCWallet args = ModalRoute.of(context).settings.arguments;
 
     fetchAddress(args.address).then((wallet) {
-      print(wallet.addrSt);
+      print(wallet.addrStr);
       print(wallet.balance);
       print(wallet.balanceSat);
     });

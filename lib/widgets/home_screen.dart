@@ -1,8 +1,11 @@
 import 'package:btc_wallet/widgets/wallet_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:bitcoin_flutter/bitcoin_flutter.dart';
 import 'package:bip39/bip39.dart' as bip39;
+import 'dart:async';
+
+import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter/services.dart';
 
 var myController = TextEditingController();
 
@@ -25,6 +28,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String barcode = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,9 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: IconButton(
                         icon: Icon(Icons.camera_alt),
                         onPressed: () async {
-                          String cameraScanResult = await scanner.scan();
-                          print(cameraScanResult);
-                          myController.text = cameraScanResult;
+                          // String cameraScanResult = await scanner.scan();
+                          scan();
+                          // print(cameraScanResult);
+                          // myController.text = cameraScanResult;
                         })),
               ],
             ),
@@ -66,5 +72,25 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+
+   Future scan() async {
+    try {
+      String barcode = await BarcodeScanner.scan();
+      myController.text = barcode;
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        // setState(() {
+          // this.barcode = 'The user did not grant the camera permission!';
+        // });
+      } else {
+        // setState(() => this.barcode = 'Unknown error: $e');
+      }
+    } on FormatException{
+      // setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
+    } catch (e) {
+      // setState(() => this.barcode = 'Unknown error: $e');
+    }
   }
 }
