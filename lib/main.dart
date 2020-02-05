@@ -85,11 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children:<Widget>[
                 Expanded(child: TextField()),
-                Expanded(child: FlatButton(textColor:Colors.white, color:Colors.blue, onPressed: (){}, 
-              child: Text("Scan", style: TextStyle(fontSize: 12.0)))),
+                SizedBox(width:70, child:IconButton(icon:Icon(Icons.camera_alt), onPressed: (){})),
               ],
             ),
-            Container(margin: new EdgeInsets.all(25.0), child: FlatButton(textColor:Colors.white, color:Colors.blue, onPressed: (){}, 
+            Container(margin: new EdgeInsets.all(25.0), child: RaisedButton(textColor:Colors.white, color:Colors.blue, onPressed: (){}, 
               child: Text("Import", style: TextStyle(fontSize: 20.0))))
           ],
         ),
