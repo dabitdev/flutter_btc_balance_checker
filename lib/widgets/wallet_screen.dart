@@ -1,7 +1,7 @@
+import 'package:btc_wallet/widgets/wallet_balance.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:btc_wallet/widgets/BlockExplorerResponse.dart';
-import 'dart:convert';
+import 'package:btc_wallet/states/wallet_state.dart';
+import 'package:provider/provider.dart';
 
 class BTCWallet {
   final String address;
@@ -13,7 +13,6 @@ class Wallet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final BTCWallet args = ModalRoute.of(context).settings.arguments;
 
     fetchAddress(args.address).then((wallet) {
@@ -22,29 +21,15 @@ class Wallet extends StatelessWidget {
       print(wallet.balanceSat);
     });
 
-    return Container(
-      child: Scaffold(
-        body:SafeArea(
-          child: Column(
-            children: <Widget>[
-              Text(args.address)
-            ],
+    return Provider<WalletState>(
+      create: (_) => WalletState(),
+      child: Container(
+        child: Scaffold(
+          body:SafeArea(
+            child: WalletBalance(address : args.address)
+            ),
           ),
         ),
-      ),
     );
-  }
-}
-
-Future<BlockExplorerResponse> fetchAddress(String publicAddress) async {
-  final response =
-      await http.get('https://blockexplorer.com/api/addr/' + publicAddress);
-
-  if (response.statusCode == 200) {
-    // If server returns an OK response, parse the JSON.
-    return BlockExplorerResponse.fromJson(json.decode(response.body));
-  } else {
-    // If that response was not OK, throw an error.
-    throw Exception('Failed to load BlockExplorerResponse');
   }
 }
