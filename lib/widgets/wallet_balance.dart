@@ -5,6 +5,7 @@ import 'package:btc_wallet/states/wallet_state.dart';
 import 'package:btc_wallet/models/BlockExplorerResponse.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:async';
 
 class WalletBalance extends StatelessWidget {
   final String address;
@@ -13,10 +14,16 @@ class WalletBalance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<WalletState>(context);
-    fetchAddress(address).then((response) {
-     state.setBalance(response.balance);
-    });
-    
+    updateBalance(state, address);
+
+    const oneSec = const Duration(seconds:5);
+    Timer.periodic(oneSec, (Timer t) =>
+      fetchAddress(address).then((response) {
+        state.setBalance(response.balance);
+        print("updating balance " + response.balance.toString());
+      })
+    );
+
     return Column(
         children: <Widget>[
           Observer (
@@ -27,6 +34,14 @@ class WalletBalance extends StatelessWidget {
       );
   }
 }
+
+
+updateBalance(WalletState state, String address) {
+     fetchAddress(address).then((response) {
+     state.setBalance(response.balance);
+     print("updating balance " + response.balance.toString());
+    });
+  }
 
 Future<BlockExplorerResponse> fetchAddress(String publicAddress) async {
   final response =
