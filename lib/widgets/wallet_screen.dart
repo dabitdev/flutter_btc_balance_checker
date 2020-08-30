@@ -18,7 +18,6 @@ class Wallet extends StatelessWidget {
     fetchAddress(args.address).then((wallet) {
       print(wallet.addrStr);
       print(wallet.balance);
-      print(wallet.balanceSat);
     });
 
     return Provider<WalletState>(

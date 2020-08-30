@@ -12,14 +12,14 @@ mixin _$WalletState on _WalletState, Store {
   final _$balanceAtom = Atom(name: '_WalletState.balance');
 
   @override
-  double get balance {
+  int get balance {
     _$balanceAtom.context.enforceReadPolicy(_$balanceAtom);
     _$balanceAtom.reportObserved();
     return super.balance;
   }
 
   @override
-  set balance(double value) {
+  set balance(int value) {
     _$balanceAtom.context.conditionallyRunInAction(() {
       super.balance = value;
       _$balanceAtom.reportChanged();
@@ -29,7 +29,7 @@ mixin _$WalletState on _WalletState, Store {
   final _$_WalletStateActionController = ActionController(name: '_WalletState');
 
   @override
-  void setBalance(double newBalance) {
+  void setBalance(int newBalance) {
     final _$actionInfo = _$_WalletStateActionController.startAction();
     try {
       return super.setBalance(newBalance);

@@ -20,6 +20,7 @@ class WalletBalance extends StatelessWidget {
     Timer.periodic(oneSec, (Timer t) =>
       fetchAddress(address).then((response) {
         state.setBalance(response.balance);
+          print("response " + response.toString());
         print("updating balance " + response.balance.toString());
       })
     );
@@ -45,10 +46,13 @@ updateBalance(WalletState state, String address) {
 
 Future<BlockExplorerResponse> fetchAddress(String publicAddress) async {
   final response =
-      await http.get('https://blockexplorer.com/api/addr/' + publicAddress);
+      await http.get('https://www.bitgo.com/api/v1/address/' + publicAddress);
 
   if (response.statusCode == 200) {
+         print("https://www.bitgo.com/api/v1/address/" + publicAddress);
     // If server returns an OK response, parse the JSON.
+     print("updating balance " + response.body);
+
     return BlockExplorerResponse.fromJson(json.decode(response.body));
   } else {
     // If that response was not OK, throw an error.

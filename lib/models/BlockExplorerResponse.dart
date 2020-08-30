@@ -1,15 +1,13 @@
 class BlockExplorerResponse {
   final String addrStr;
-  final double balance;
-  final int balanceSat;
+  final int balance;
 
-  BlockExplorerResponse({this.addrStr, this.balance, this.balanceSat});
+  BlockExplorerResponse({this.addrStr, this.balance});
 
   factory BlockExplorerResponse.fromJson(Map<String, dynamic> json) {
     return BlockExplorerResponse(
-      addrStr: json['addrStr'],
-      balance: json['balance'],
-      balanceSat: json['balanceSat']
+      addrStr: json['address'],
+      balance: json['balance']
     );
   }
 }
