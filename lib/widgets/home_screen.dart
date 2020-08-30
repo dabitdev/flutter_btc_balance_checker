@@ -1,7 +1,5 @@
 import 'package:btc_wallet/widgets/wallet_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:bitcoin_flutter/bitcoin_flutter.dart';
-import 'package:bip39/bip39.dart' as bip39;
 import 'dart:async';
 
 import 'package:barcode_scan/barcode_scan.dart';
