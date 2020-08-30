@@ -9,10 +9,10 @@ class WalletState = _WalletState with _$WalletState;
 // The store-class
 abstract class _WalletState with Store {
   @observable
-  double balance = 0;
+  int balance = 0;
 
   @action
-  void setBalance(double newBalance) {
+  void setBalance(int newBalance) {
     balance = newBalance;
   }
 }
